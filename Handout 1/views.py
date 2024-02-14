@@ -30,3 +30,5 @@ def index(request):
     notes = '\n'.join(notes_li)
     response_body = load_template('index.html').format(notes=notes)
     return build_response(code=200, body=response_body)
+
+

@@ -27,6 +27,7 @@ def add_note(note):
         json.dump(data, file, indent=4)
         file.truncate()
 
+
 def build_response(body='', code=200, reason='OK', headers=''):
     if code == 302:
         response = f'HTTP/1.1 {code} {reason}\n{headers}\n{body}\n'
