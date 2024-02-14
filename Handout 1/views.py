@@ -1,4 +1,4 @@
-from utils import load_data, load_template, add_note
+from utils import load_data, load_template, add_note, build_response
 import urllib.parse
 
 
@@ -20,6 +20,7 @@ def index(request):
             chave, valor = chave_valor.split('=')
             params[chave] = urllib.parse.unquote_plus(valor)
         add_note(params)
+        return build_response(code=303, reason='See Other', headers='Location: /')
 
     note_template = load_template('components/note.html')
     notes_li = [
@@ -27,5 +28,5 @@ def index(request):
         for dados in load_data('notes.json')
     ]
     notes = '\n'.join(notes_li)
-
-    return load_template('index.html').format(notes=notes).encode()
+    response_body = load_template('index.html').format(notes=notes)
+    return build_response(code=200, body=response_body)
