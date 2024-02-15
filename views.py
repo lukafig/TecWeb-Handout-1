@@ -20,8 +20,7 @@ def index(request):
             chave, valor = chave_valor.split('=')
             params[chave] = urllib.parse.unquote_plus(valor)
         add_note(params)
-        return build_response(code=303, reason='See Other', headers='Location: /')
-
+        
     note_template = load_template('components/note.html')
     notes_li = [
         note_template.format(title=dados['titulo'], details=dados['detalhes'])
@@ -29,6 +28,9 @@ def index(request):
     ]
     notes = '\n'.join(notes_li)
     response_body = load_template('index.html').format(notes=notes)
-    return build_response(code=200, body=response_body)
+    if request.startswith('POST'):
+        return build_response(code=303, reason='See Other', headers='Location: /')
+    else:
+        return build_response(code=200, body=response_body)
 
 
