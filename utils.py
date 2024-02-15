@@ -29,8 +29,8 @@ def add_note(note):
 
 
 def build_response(body='', code=200, reason='OK', headers=''):
-    if code == 302:
-        response = f'HTTP/1.1 {code} {reason}\n{headers}\n{body}\n'
+    if headers == '':
+        response = f'HTTP/1.1 {code} {reason}\n\n{body}'
     else:
-        response = f'HTTP/1.1 {code} {reason}\n{headers}\n{body}'
+        response = f'HTTP/1.1 {code} {reason}\n{headers}\n\n{body}'
     return response.encode()
